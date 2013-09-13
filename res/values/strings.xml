@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kupli</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="service">Servis Adı:</string>
+	<string name="user">Kullanıcı:</string>
+	<string name="pass">Şifre:</string>
+	<string name="save">Kaydet</string>
+</resources>
