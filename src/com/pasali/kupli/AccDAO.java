@@ -1,6 +1,7 @@
 package com.pasali.kupli;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,9 +17,6 @@ public class AccDAO {
 		dbHelper = new DataBaseHelper(context);
 	}
 
-	public void close() {
-		db.close();
-	}
 
 	public void addAcc(Account acc){
 		db = dbHelper.getWritableDatabase();
@@ -27,22 +25,21 @@ public class AccDAO {
 		values.put(DataBaseHelper.COLUMN_USER, acc.getUser());
 		values.put(DataBaseHelper.COLUMN_PASS, acc.getPass());
 		db.insert(DataBaseHelper.TABLE_ACC, null, values);
-		close(); 
+		dbHelper.close(); 
 	}
 
-	public Account getAcc(int id) {
+	public Account getAcc(long id) {
 		db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.query(DataBaseHelper.TABLE_ACC, new String[] {DataBaseHelper.COLUMN_ID,
-				DataBaseHelper.COLUMN_NAME, DataBaseHelper.COLUMN_USER, DataBaseHelper.COLUMN_PASS }, DataBaseHelper.COLUMN_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
-		if (cursor != null)
-			cursor.moveToFirst();
-
-		Account acc = new Account(cursor.getInt(0),cursor.getString(1),
+		Cursor cursor = db.rawQuery("SELECT * FROM "+ DataBaseHelper.TABLE_ACC +" WHERE _id= ?", new String[] { String.valueOf(id) });
+		Account acc = null;
+		if (cursor != null && cursor.moveToFirst()){
+			acc = new Account(cursor.getInt(0),cursor.getString(1),
 				cursor.getString(2), cursor.getString(3));
+		}
+		cursor.close();
+		dbHelper.close();
 		return acc;
 	}
-	
 	public ArrayList<Account> getAllAccs() {
 		ArrayList<Account> accs = new ArrayList<Account>();
 		db = dbHelper.getReadableDatabase();
@@ -57,24 +54,27 @@ public class AccDAO {
                 accs.add(acc);
             } while (cursor.moveToNext());
         }
+		dbHelper.close();
 		return accs;		
 	}
 	
-	public ArrayList<String> getAllNames() {
-		ArrayList<String> accs = new ArrayList<String>();
+	public HashMap<String,String> getAllNames() {
+		HashMap<String,String> accs = new HashMap<String,String>();
 		db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("select * from " + DataBaseHelper.TABLE_ACC, null);
 		if (cursor.moveToFirst()) {
             do {
-                accs.add(cursor.getString(1));
+                accs.put(cursor.getString(1),String.valueOf(cursor.getInt(0)));
             } while (cursor.moveToNext());
         }
+		dbHelper.close();
 		return accs;		
 	}
 	
 	public void emptyTable(){
 		db = dbHelper.getWritableDatabase();
 		db.delete(DataBaseHelper.TABLE_ACC, null, null);
+		dbHelper.close();
 	}
 	
 	public int updateAcc(Account acc){
@@ -83,13 +83,14 @@ public class AccDAO {
 		values.put(DataBaseHelper.COLUMN_NAME, acc.getName());
 		values.put(DataBaseHelper.COLUMN_USER, acc.getUser());
 		values.put(DataBaseHelper.COLUMN_PASS, acc.getPass());
+		dbHelper.close();
 		return db.update(DataBaseHelper.TABLE_ACC, values, DataBaseHelper.COLUMN_ID + " = ?", new String[] { String.valueOf(acc.getId()) });
-
+		
 	}
 	
-	public void deleteAcc(int id) {
+	public void deleteAcc(long id) {
         db = dbHelper.getWritableDatabase();
         db.delete(DataBaseHelper.TABLE_ACC, DataBaseHelper.COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
-        db.close();
+        dbHelper.close();
     }
 }

@@ -17,7 +17,6 @@ public class SaveActivity extends Activity {
 		setContentView(R.layout.activity_save);
 		saveDao = new AccDAO(this);
 		newAcc = new Account();
-		saveDao.emptyTable();
 		Button save = (Button) findViewById(R.id.saveButton);
 		save.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

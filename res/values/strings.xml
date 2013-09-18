@@ -5,7 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="service">Servis Adı:</string>
-	<string name="user">Kullanıcı:</string>
-	<string name="pass">Şifre:</string>
-	<string name="save">Kaydet</string>
+    <string name="user">Kullanıcı:</string>
+    <string name="pass">Şifre:</string>
+    <string name="save">Kaydet</string>
+    <string name="title_activity_show">Hesap Bilgileri</string>
+
 </resources>
