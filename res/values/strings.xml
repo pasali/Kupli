@@ -9,5 +9,8 @@
     <string name="pass">Şifre:</string>
     <string name="save">Kaydet</string>
     <string name="title_activity_show">Hesap Bilgileri</string>
+    <string name="edit">Düzenle</string>
+    <string name="delete">Sil</string>
+    <string name="title_activity_edit">Düzenle</string>
 
 </resources>

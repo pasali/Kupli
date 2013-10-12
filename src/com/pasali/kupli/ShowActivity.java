@@ -9,19 +9,18 @@ import android.widget.TextView;
 public class ShowActivity extends Activity {
 
 	private TextView user, pass;
-	private String username, password;
 	private Account acc = null;
-	private long id;
+	private String id;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show);
 		Bundle extras = getIntent().getExtras(); 
 		if(extras !=null) {
-		    id = extras.getLong("id");
+		    id = extras.getString("id");
 		}
-		acc = new AccDAO(this).getAcc(121);
-		
+
+		acc = new AccDAO(this).getAcc(Long.valueOf(id));
 		user = (TextView)findViewById(R.id.textView2);
 		user.setText(acc.getUser());
 		pass = (TextView)findViewById(R.id.textView4);

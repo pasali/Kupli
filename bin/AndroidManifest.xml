@@ -30,6 +30,10 @@
             android:name="com.pasali.kupli.ShowActivity"
             android:label="@string/title_activity_show" >
         </activity>
+        <activity
+            android:name="com.pasali.kupli.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
     </application>
 
 </manifest>

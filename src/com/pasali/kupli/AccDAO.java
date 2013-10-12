@@ -77,15 +77,14 @@ public class AccDAO {
 		dbHelper.close();
 	}
 	
-	public int updateAcc(Account acc){
+	public void updateAcc(Account acc){
 		db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(DataBaseHelper.COLUMN_NAME, acc.getName());
 		values.put(DataBaseHelper.COLUMN_USER, acc.getUser());
 		values.put(DataBaseHelper.COLUMN_PASS, acc.getPass());
+		db.update(DataBaseHelper.TABLE_ACC, values, DataBaseHelper.COLUMN_ID + " = ?", new String[] { String.valueOf(acc.getId()) });
 		dbHelper.close();
-		return db.update(DataBaseHelper.TABLE_ACC, values, DataBaseHelper.COLUMN_ID + " = ?", new String[] { String.valueOf(acc.getId()) });
-		
 	}
 	
 	public void deleteAcc(long id) {
