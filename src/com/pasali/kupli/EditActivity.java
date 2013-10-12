@@ -20,11 +20,11 @@ public class EditActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit);
-		
 		Bundle extras = getIntent().getExtras(); 
 		if(extras !=null) {
 		    id = extras.getString("id");
 		}
+		
 		editDao = new AccDAO(this);
 		acc = new AccDAO(this).getAcc(Long.valueOf(id));
 		user = (EditText)findViewById(R.id.editText1);
