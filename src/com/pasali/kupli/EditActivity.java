@@ -15,6 +15,7 @@ public class EditActivity extends Activity {
 	private Account acc = null;
 	private AccDAO editDao;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
