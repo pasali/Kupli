@@ -1,6 +1,9 @@
 package com.pasali.kupli;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,7 @@ public class SaveActivity extends Activity {
 	private Account newAcc;
 	private EditText service, user, pass;
 
+	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_save);
@@ -26,10 +30,23 @@ public class SaveActivity extends Activity {
 				newAcc.setName(service.getText().toString());
 				newAcc.setUser(user.getText().toString());
 				newAcc.setPass(pass.getText().toString());
-				saveDao.addAcc(newAcc);
-
+				saveDao.addAcc(newAcc);	
+				AlertDialog alertDialog = new AlertDialog.Builder(
+						SaveActivity.this).create();
+				alertDialog.setTitle("Kayıt Onayı");
+				alertDialog.setMessage("Hesabınızı başarı ile kaydettiniz.");
+				alertDialog.setIcon(R.drawable.tick);
+				alertDialog.setButton("Tamam", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int which) {
+						Intent main = new Intent(getApplicationContext(), MainActivity.class);
+						startActivity(main);
+					}
+				});
+				alertDialog.show();
 			}
 		});
+
+		
 	}
 
 }
