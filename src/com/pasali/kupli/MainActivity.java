@@ -59,6 +59,23 @@ public class MainActivity extends Activity {
 		});
 		registerForContextMenu(list);
 	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		liste_elemanlari = dbhandler.getAllNames();
+		keys = new ArrayList<String>(liste_elemanlari.keySet());
+		list = (ListView) findViewById(R.id.listView1);
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, keys);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				adapter.notifyDataSetChanged();
+			}
+		});
+		list.setAdapter(adapter);
+		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

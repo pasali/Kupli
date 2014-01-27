@@ -22,6 +22,7 @@ public class ShowActivity extends Activity {
 
 		acc = new AccDAO(this).getAcc(Long.valueOf(id));
 		user = (TextView)findViewById(R.id.textView2);
+		user.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,26);
 		user.setText(acc.getUser());
 		pass = (TextView)findViewById(R.id.textView4);
 		pass.setText(acc.getPass());

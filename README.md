@@ -1,1 +1,1 @@
-you don't have to remember all accounts and passwords anymore.
+Android  deneme uygulaması bir nevi "hello world" sayılır.
